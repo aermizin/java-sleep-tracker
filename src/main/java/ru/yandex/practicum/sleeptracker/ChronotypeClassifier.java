@@ -7,11 +7,11 @@ import java.util.function.Function;
 
 public class ChronotypeClassifier implements Function<List<SleepingSession>, SleepAnalysisResult<?>> {
 
-    private final LocalTime LATE_BEDTIME = LocalTime.of(23, 0);
-    private final LocalTime LATE_WAKEUP = LocalTime.of(9, 0);
-    private final LocalTime EARLY_BEDTIME = LocalTime.of(22, 0);
-    private final LocalTime EARLY_WAKEUP = LocalTime.of(7, 0);
-    private final LocalTime EVENING_SESSION_START = LocalTime.of(18, 0);
+    public static final LocalTime LATE_BEDTIME = LocalTime.of(23, 0);
+    public static final LocalTime LATE_WAKEUP = LocalTime.of(9, 0);
+    public static final LocalTime EARLY_BEDTIME = LocalTime.of(22, 0);
+    public static final LocalTime EARLY_WAKEUP = LocalTime.of(7, 0);
+    public static final LocalTime EVENING_SESSION_START = LocalTime.of(18, 0);
 
     @Override
     public SleepAnalysisResult<String> apply(List<SleepingSession> sleepingSessions) {
