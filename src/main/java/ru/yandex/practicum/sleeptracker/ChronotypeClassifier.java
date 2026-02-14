@@ -35,7 +35,7 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
 
         boolean nightOwl = start.toLocalTime().isAfter(LocalTime.MIDNIGHT) && end.toLocalTime().isAfter(LATE_WAKEUP);
 
-        boolean transitionOwl = start.toLocalTime().isAfter( LATE_BEDTIME) && end.toLocalTime().isBefore(LATE_WAKEUP)
+        boolean transitionOwl = start.toLocalTime().isAfter(LATE_BEDTIME) && end.toLocalTime().isBefore(LATE_WAKEUP)
                 && !start.equals(end);
 
         return nightOwl || transitionOwl;
