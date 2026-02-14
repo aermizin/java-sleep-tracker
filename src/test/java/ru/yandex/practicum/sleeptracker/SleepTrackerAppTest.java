@@ -231,6 +231,7 @@ public class SleepTrackerAppTest {
         assertEquals(1, result.getResult(), "Количество бессонных ночей должно быть равно одному, " +
                 "так как пропущена одна ночь.");
     }
+
     @Test
     void testSeveralNightsWithoutSleep() {
         List<SleepingSession> list = List.of(
