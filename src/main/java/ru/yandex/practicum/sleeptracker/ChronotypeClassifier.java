@@ -29,7 +29,7 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
         return new SleepAnalysisResult<>(chronotype, "Ваш хронотип");
     }
 
-    public boolean isOwl (SleepingSession session) {
+    public boolean isOwl(SleepingSession session) {
         LocalDateTime start = session.getStartSleep();
         LocalDateTime end = session.getEndSleep();
 
@@ -41,7 +41,7 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
         return nightOwl || transitionOwl;
     }
 
-    public boolean isLark (SleepingSession session) {
+    public boolean isLark(SleepingSession session) {
         LocalDateTime start = session.getStartSleep();
         LocalDateTime end = session.getEndSleep();
 

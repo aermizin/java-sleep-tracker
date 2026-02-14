@@ -7,7 +7,7 @@ public class SleepingSession {
     private LocalDateTime endSleep;
     private String qualitySleep;
 
-    public SleepingSession (LocalDateTime startSleep, LocalDateTime endSleep, String qualitySleep) {
+    public SleepingSession(LocalDateTime startSleep, LocalDateTime endSleep, String qualitySleep) {
         this.startSleep = startSleep;
         this.endSleep = endSleep;
         this.qualitySleep = qualitySleep;
