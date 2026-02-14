@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class InsomniaNightsCounter implements Function<List<SleepingSession>, SleepAnalysisResult<?>> {
 
-    private final LocalTime MORNING_SESSION_START = LocalTime.of(6, 0);
+    public static final LocalTime MORNING_SESSION_START = LocalTime.of(6, 0);
 
     @Override
     public SleepAnalysisResult<Integer> apply(List<SleepingSession> sleepingSessions) {
