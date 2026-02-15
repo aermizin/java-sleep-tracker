@@ -34,7 +34,7 @@ public class SleepTrackerAppTest {
     void testTotalSleepSessionsCounterWithEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<Integer> result = totalSleepSessionsCounter.apply(emptyList);
+        SleepAnalysisResult<Integer> result = totalSleepSessionsCounter.calculate(emptyList);
 
         assertEquals(0, result.getResult(), "Кол-во сессий сна должно быть равно нулю для пустого списка.");
     }
@@ -45,7 +45,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 1, 23, 15),
                     LocalDateTime.of(2025, 10, 2, 7, 30), "GOOD")));
 
-        SleepAnalysisResult<Integer> result = totalSleepSessionsCounter.apply(list);
+        SleepAnalysisResult<Integer> result = totalSleepSessionsCounter.calculate(list);
 
         assertEquals(1, result.getResult(), "Кол-во сессий сна должно быть равно одному.");
     }
@@ -54,7 +54,7 @@ public class SleepTrackerAppTest {
     void testMinSleepSessionCounterWithEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<Long> result = minSleepSessionDurationFinder.apply(emptyList);
+        SleepAnalysisResult<Long> result = minSleepSessionDurationFinder.calculate(emptyList);
 
         assertEquals(0, result.getResult(), "Минимальная продолжительность сессии сна должна быть равна " +
                 "нулю для пустого списка.");
@@ -68,7 +68,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 0, 30),
                     LocalDateTime.of(2025, 10, 3, 7, 30), "NORMAL"));
 
-        SleepAnalysisResult<Long> result = minSleepSessionDurationFinder.apply(list);
+        SleepAnalysisResult<Long> result = minSleepSessionDurationFinder.calculate(list);
 
         assertEquals(420, result.getResult(), "Минимальная продолжительность сессии сна среди заданных " +
                 "сессий должна быть равна наименьшей из них, то есть 420 минут.");
@@ -84,7 +84,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 20, 30),
                     LocalDateTime.of(2025, 10, 4, 6, 0), "BAD"));
 
-        SleepAnalysisResult<Long> result = minSleepSessionDurationFinder.apply(list);
+        SleepAnalysisResult<Long> result = minSleepSessionDurationFinder.calculate(list);
 
         assertEquals(420, result.getResult(), "Минимальная продолжительность сна должна быть равна " +
                 " 420 минут,так как две сессии сна имеют одинаковую минимальную продолжительность.");
@@ -94,7 +94,7 @@ public class SleepTrackerAppTest {
     void testMaxSleepSessionCounterWithEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<Long> result = maxSleepSessionDurationFinder.apply(emptyList);
+        SleepAnalysisResult<Long> result = maxSleepSessionDurationFinder.calculate(emptyList);
 
         assertEquals(0, result.getResult(), "Максимальная продолжительность сессии сна должна быть равна " +
                 "нулю для пустого списка.");
@@ -108,7 +108,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 2, 30),
                     LocalDateTime.of(2025, 10, 3, 7, 30), "NORMAL"));
 
-        SleepAnalysisResult<Long> result = maxSleepSessionDurationFinder.apply(list);
+        SleepAnalysisResult<Long> result = maxSleepSessionDurationFinder.calculate(list);
 
         assertEquals(570, result.getResult(), "Максимальная продолжительность сессии сна среди заданных " +
                 "сессий должна быть равна наибольшей из них , то есть 570 минут.");
@@ -124,7 +124,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 20, 30),
                     LocalDateTime.of(2025, 10, 4, 2, 0), "BAD"));
 
-        SleepAnalysisResult<Long> result = maxSleepSessionDurationFinder.apply(list);
+        SleepAnalysisResult<Long> result = maxSleepSessionDurationFinder.calculate(list);
 
         assertEquals(420, result.getResult(), "Максимальная продолжительность сна должна быть равна " +
                 " 420 минут,так как две сессии сна имеют одинаковую максимальную продолжительность.");
@@ -134,7 +134,7 @@ public class SleepTrackerAppTest {
     void testAverageSleepSessionDurationCounterWithEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<Long> result = averageSleepSessionDurationCalculator.apply(emptyList);
+        SleepAnalysisResult<Long> result = averageSleepSessionDurationCalculator.calculate(emptyList);
 
         assertEquals(0, result.getResult(), "Средняя продолжительность сессий сна должна быть равна " +
                 "нулю для пустого списка.");
@@ -148,7 +148,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 0, 0),
                     LocalDateTime.of(2025, 10, 4, 0, 0), "NORMAL"));
 
-        SleepAnalysisResult<Long> result = averageSleepSessionDurationCalculator.apply(list);
+        SleepAnalysisResult<Long> result = averageSleepSessionDurationCalculator.calculate(list);
 
         assertEquals(960, result.getResult(), "Средняя продолжительность сессий сна должна быть равна " +
                 "среднему арифметическому значению их длительности.");
@@ -158,7 +158,7 @@ public class SleepTrackerAppTest {
     void testBadQualitySleepSessionCounterWithEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<Long> result = badQualitySleepSessionCounter.apply(emptyList);
+        SleepAnalysisResult<Long> result = badQualitySleepSessionCounter.calculate(emptyList);
 
         assertEquals(0, result.getResult(), "Количество сессий с плохим качеством сна " +
                 "должно быть равно нулю для пустого списка.");
@@ -172,7 +172,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 0, 0),
                     LocalDateTime.of(2025, 10, 4, 0, 0), "NORMAL"));
 
-        SleepAnalysisResult<Long> result = badQualitySleepSessionCounter.apply(list);
+        SleepAnalysisResult<Long> result = badQualitySleepSessionCounter.calculate(list);
 
         assertEquals(0, result.getResult(), "Количество сессий с плохим качеством сна " +
                 "должно быть равно нулю, так как таких сессий нет в списке.");
@@ -188,7 +188,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 20, 30),
                     LocalDateTime.of(2025, 10, 4, 2, 0), "BAD"));
 
-        SleepAnalysisResult<Long> result = badQualitySleepSessionCounter.apply(list);
+        SleepAnalysisResult<Long> result = badQualitySleepSessionCounter.calculate(list);
 
         assertEquals(1, result.getResult(), "Количество сессий с плохим качеством сна " +
                 "должно быть равно одному.");
@@ -198,7 +198,7 @@ public class SleepTrackerAppTest {
     void testInsomniaNightsClassificationOnEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<Integer> result = insomniaNightsCounter.apply(emptyList);
+        SleepAnalysisResult<Integer> result = insomniaNightsCounter.calculate(emptyList);
 
         assertEquals(0, result.getResult(), "Количество бессонных ночей должно быть равно " +
                 "нулю для пустого списка.");
@@ -214,7 +214,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 23, 0),
                         LocalDateTime.of(2025, 10, 4, 7, 0), "NORMAL")
         );
-        SleepAnalysisResult<Integer> result = insomniaNightsCounter.apply(list);
+        SleepAnalysisResult<Integer> result = insomniaNightsCounter.calculate(list);
         assertEquals(0, result.getResult(), "Количество бессонных ночей должно быть равно нулю," +
                 " так как все ночи покрыты сессиями.");
     }
@@ -227,29 +227,46 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 23, 0),
                         LocalDateTime.of(2025, 10, 4, 7, 0), "NORMAL")
         );
-        SleepAnalysisResult<Integer> result = insomniaNightsCounter.apply(list);
+        SleepAnalysisResult<Integer> result = insomniaNightsCounter.calculate(list);
         assertEquals(1, result.getResult(), "Количество бессонных ночей должно быть равно одному, " +
                 "так как пропущена одна ночь.");
     }
 
     @Test
-    void testSeveralNightsWithoutSleep() {
+    void testAcrossMonthBoundary() {
         List<SleepingSession> list = List.of(
-                new SleepingSession(LocalDateTime.of(2025, 10, 1, 23, 0),
-                        LocalDateTime.of(2025, 10, 2, 7, 0), "NORMAL"),
-                new SleepingSession(LocalDateTime.of(2025, 10, 5, 23, 0),
-                        LocalDateTime.of(2025, 10, 6, 7, 0), "NORMAL")
+                new SleepingSession(LocalDateTime.of(2025, 10, 31, 23, 0),
+                        LocalDateTime.of(2025, 11, 1, 7, 0), "NORMAL"),
+                new SleepingSession(LocalDateTime.of(2025, 11, 1, 23, 0),
+                        LocalDateTime.of(2025, 11, 2, 7, 0), "NORMAL"),
+                new SleepingSession(LocalDateTime.of(2025, 11, 2, 23, 0),
+                        LocalDateTime.of(2025, 11, 3, 7, 0), "NORMAL")
         );
-        SleepAnalysisResult<Integer> result = insomniaNightsCounter.apply(list);
-        assertEquals(3, result.getResult(), "Количество бессонных ночей должно быть равно трём, " +
-                "так как пропущены три ночи.");
+
+        SleepAnalysisResult<Integer> result = insomniaNightsCounter.calculate(list);
+        assertEquals(0, result.getResult(), "Количество бессонных ночей должно быть равно нулю," +
+                " так как все ночи покрыты сессиями.");
+    }
+
+    @Test
+    void testFirstSessionAfterMidnight() {
+        List<SleepingSession> list = List.of(
+                new SleepingSession(LocalDateTime.of(2025, 10, 1, 0, 30),
+                        LocalDateTime.of(2025, 10, 1, 7, 0), "NORMAL"),
+                new SleepingSession(LocalDateTime.of(2025, 10, 1, 23, 0),
+                        LocalDateTime.of(2025, 10, 2, 7, 0), "NORMAL")
+        );
+
+        SleepAnalysisResult<Integer> result = insomniaNightsCounter.calculate(list);
+        assertEquals(0, result.getResult(), "Количество бессонных ночей должно быть равно нулю," +
+                " так как все ночи покрыты сессиями.");
     }
 
     @Test
     void testChronotypeClassificationOnEmptyList() {
         List<SleepingSession> emptyList = List.of();
 
-        SleepAnalysisResult<String> result = chronotypeClassifier.apply(emptyList);
+        SleepAnalysisResult<String> result = chronotypeClassifier.calculate(emptyList);
 
         assertEquals("Голубь", result.getResult(), "Должен возвращаться хронотип Голубь" +
                 " для пустого списка.");
@@ -265,7 +282,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 20, 30),
                     LocalDateTime.of(2025, 10, 4, 6, 0), "GOOD"));
 
-        SleepAnalysisResult<String> result = chronotypeClassifier.apply(list);
+        SleepAnalysisResult<String> result = chronotypeClassifier.calculate(list);
 
         assertEquals("Сова", result.getResult(), "Должен возвращаться хронотип Сова, так как наибольшее " +
                 " количество сессий сна подходят под его условия.");
@@ -281,7 +298,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 3, 0, 10),
                         LocalDateTime.of(2025, 10, 3, 11, 0), "NORMAL"));
 
-        SleepAnalysisResult<String> result = chronotypeClassifier.apply(list);
+        SleepAnalysisResult<String> result = chronotypeClassifier.calculate(list);
 
         assertEquals("Жаворонок", result.getResult(), "Должен возвращаться хронотип Жаворонок, так как " +
                 "наибольшее количество сессий сна подходят под его условия.");
@@ -295,7 +312,7 @@ public class SleepTrackerAppTest {
                 new SleepingSession(LocalDateTime.of(2025, 10, 2, 21, 0),
                     LocalDateTime.of(2025, 10, 3, 6, 0), "GOOD"));
 
-        SleepAnalysisResult<String> result = chronotypeClassifier.apply(list);
+        SleepAnalysisResult<String> result = chronotypeClassifier.calculate(list);
 
         assertEquals("Голубь", result.getResult(), "Должен возвращаться хронотип Голубь, при равенстве" +
                 " количества сессий сна.");

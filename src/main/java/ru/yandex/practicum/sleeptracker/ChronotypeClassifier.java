@@ -3,9 +3,8 @@ package ru.yandex.practicum.sleeptracker;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.function.Function;
 
-public class ChronotypeClassifier implements Function<List<SleepingSession>, SleepAnalysisResult<?>> {
+public class ChronotypeClassifier implements SleepMetricCalculator<SleepAnalysisResult<?>> {
 
     public static final LocalTime LATE_BEDTIME = LocalTime.of(23, 0);
     public static final LocalTime LATE_WAKEUP = LocalTime.of(9, 0);
@@ -14,7 +13,7 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
     public static final LocalTime EVENING_SESSION_START = LocalTime.of(18, 0);
 
     @Override
-    public SleepAnalysisResult<String> apply(List<SleepingSession> sleepingSessions) {
+    public SleepAnalysisResult<String> calculate(List<SleepingSession> sleepingSessions) {
 
         long owlCount = sleepingSessions.stream()
                 .filter(this::isOwl)
@@ -24,9 +23,10 @@ public class ChronotypeClassifier implements Function<List<SleepingSession>, Sle
                 .filter(this::isLark)
                 .count();
 
-        String chronotype = owlCount > larkCount ? "Сова" : larkCount > owlCount ? "Жаворонок" : "Голубь";
+        Chronotype chronotype = owlCount > larkCount ? Chronotype.OWL : larkCount > owlCount ? Chronotype.LARK
+                : Chronotype.DOVE;
 
-        return new SleepAnalysisResult<>(chronotype, "Ваш хронотип");
+        return new SleepAnalysisResult<>(chronotype.getDescription(), "Ваш хронотип");
     }
 
     public boolean isOwl(SleepingSession session) {

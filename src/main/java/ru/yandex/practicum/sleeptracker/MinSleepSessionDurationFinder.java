@@ -2,12 +2,11 @@ package ru.yandex.practicum.sleeptracker;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.function.Function;
 
-public class MinSleepSessionDurationFinder implements Function<List<SleepingSession>, SleepAnalysisResult<?>> {
+public class MinSleepSessionDurationFinder implements SleepMetricCalculator<SleepAnalysisResult<?>> {
 
     @Override
-    public SleepAnalysisResult<Long> apply(List<SleepingSession> sleepingSessions) {
+    public SleepAnalysisResult<Long> calculate(List<SleepingSession> sleepingSessions) {
 
         Duration minSleepSession = sleepingSessions.stream()
                 .map(session -> Duration.between(session.getStartSleep(), session.getEndSleep()))

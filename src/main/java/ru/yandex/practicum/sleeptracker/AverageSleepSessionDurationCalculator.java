@@ -2,12 +2,11 @@ package ru.yandex.practicum.sleeptracker;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.function.Function;
 
-public class AverageSleepSessionDurationCalculator implements Function<List<SleepingSession>, SleepAnalysisResult<?>> {
+public class AverageSleepSessionDurationCalculator implements SleepMetricCalculator<SleepAnalysisResult<?>> {
 
     @Override
-    public SleepAnalysisResult<Long> apply(List<SleepingSession> sleepingSessions) {
+    public SleepAnalysisResult<Long> calculate(List<SleepingSession> sleepingSessions) {
         if (sleepingSessions.isEmpty()) {
             return new SleepAnalysisResult<>(0L, "Средняя продолжительность сессий сна (в минутах)");
         }
