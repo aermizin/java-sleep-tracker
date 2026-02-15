@@ -32,7 +32,7 @@ public class SleepTrackerApp {
             logManager = new LogManager(printWriter);
 
             List<SleepingSession> sleepingSessions = Files.lines(Paths.get(inputFileName))
-                    .map(sleepTrackerApp :: parseSleepingSessionFromLine)
+                    .map(sleepTrackerApp::parseSleepingSessionFromLine)
                     .flatMap(Optional::stream)
                     .collect(Collectors.toList());
 
