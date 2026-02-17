@@ -17,8 +17,6 @@ public class SleepTrackerApp {
 
     public static final List<SleepMetricCalculator<SleepAnalysisResult<?>>> functions = new ArrayList<>();
 
-    private static LogManager logManager;
-
     public static void main(String[] args) {
 
         SleepTrackerApp sleepTrackerApp = new SleepTrackerApp();
@@ -26,13 +24,10 @@ public class SleepTrackerApp {
         String inputFileName = "C:\\Users\\Artem\\Desktop\\Projects\\beak\\Sprint 8\\src\\main\\resources\\sleep_log.txt";
         String outputLogFileName = "log.txt";
 
-        try (FileWriter fileWriter = new FileWriter(outputLogFileName, true);
-             PrintWriter printWriter = new PrintWriter(fileWriter)) {
-
-            logManager = new LogManager(printWriter);
+        try (LogManager logManager = new LogManager(outputLogFileName)) {
 
             List<SleepingSession> sleepingSessions = Files.lines(Paths.get(inputFileName))
-                    .map(sleepTrackerApp::parseSleepingSessionFromLine)
+                    .map(line -> sleepTrackerApp.parseSleepingSessionFromLine(line, logManager))
                     .flatMap(Optional::stream)
                     .collect(Collectors.toList());
 
@@ -43,12 +38,16 @@ public class SleepTrackerApp {
                     .forEach(result -> System.out.println(result.getDescription() +
                             ": " + result.getResult()));
 
-        } catch (Exception ex) {
-            logManager.logError(ex.getMessage());
+        } catch (Exception e) {
+            try (LogManager tempLogger = new LogManager(outputLogFileName)) {
+                tempLogger.logError("Критическая ошибка в main: " + e.getMessage());
+            } catch (IOException ex) {
+
+            }
         }
     }
 
-    private Optional<SleepingSession> parseSleepingSessionFromLine(String line) {
+    private Optional<SleepingSession> parseSleepingSessionFromLine(String line, LogManager logManager) {
         try {
             String[] parts = line.split(";");
             LocalDateTime startSleep = LocalDateTime.parse(parts[0].trim(), DATE_TIME_FORMATTER);
