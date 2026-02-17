@@ -42,7 +42,7 @@ public class SleepTrackerApp {
             try (LogManager tempLogger = new LogManager(outputLogFileName)) {
                 tempLogger.logError("Критическая ошибка в main: " + e.getMessage());
             } catch (IOException ex) {
-
+                System.err.println("Не удалось создать временный логгер: " + ex.getMessage());
             }
         }
     }
